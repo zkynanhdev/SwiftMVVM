@@ -147,6 +147,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		3341EE2B2A3C41BF0056B6F1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3348272B2A36C081002E7874 /* Spinner.swift */,
+				3348272F2A36CB7B002E7874 /* UserTableViewCell.swift */,
+				334827302A36CB7B002E7874 /* UserTableViewCell.xib */,
+				33E6336A2A3852B800408476 /* Albums */,
+				33E633692A3852A400408476 /* comments */,
+				334827332A36D3A1002E7874 /* TabbarView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		334827332A36D3A1002E7874 /* TabbarView */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,10 +197,8 @@
 		336ACC832A36210500C4B270 /* UserApp */ = {
 			isa = PBXGroup;
 			children = (
+				3341EE2B2A3C41BF0056B6F1 /* Views */,
 				33DE8B6B2A396B41006DA200 /* Provider */,
-				33E6336A2A3852B800408476 /* Albums */,
-				33E633692A3852A400408476 /* comments */,
-				334827332A36D3A1002E7874 /* TabbarView */,
 				3396493B2A363366004CD28D /* Model */,
 				336ACC842A36210500C4B270 /* AppDelegate.swift */,
 				336ACC862A36210500C4B270 /* SceneDelegate.swift */,
@@ -196,9 +207,6 @@
 				336ACC8D2A36210500C4B270 /* Assets.xcassets */,
 				336ACC8F2A36210500C4B270 /* LaunchScreen.storyboard */,
 				336ACC922A36210500C4B270 /* Info.plist */,
-				3348272B2A36C081002E7874 /* Spinner.swift */,
-				3348272F2A36CB7B002E7874 /* UserTableViewCell.swift */,
-				334827302A36CB7B002E7874 /* UserTableViewCell.xib */,
 			);
 			path = UserApp;
 			sourceTree = "<group>";
@@ -227,7 +235,6 @@
 				334827422A370931002E7874 /* AlbumsModel.swift */,
 				33E6335D2A381DF000408476 /* PostModel.swift */,
 				33E633672A38505700408476 /* CommentModel.swift */,
-				3399D70A2A39A40F00F5DF30 /* Networking.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -235,6 +242,7 @@
 		33DE8B6B2A396B41006DA200 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
+				3399D70A2A39A40F00F5DF30 /* Networking.swift */,
 				33DE8B6C2A396B79006DA200 /* UserProvider.swift */,
 				33DE8B6E2A3973F2006DA200 /* PostProvider.swift */,
 				33DE8B702A3976E7006DA200 /* AlbumProvider.swift */,
