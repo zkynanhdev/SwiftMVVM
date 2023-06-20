@@ -8,11 +8,11 @@
 import UIKit
 import Alamofire
 
-class AlbumDetail: UIViewController {
-    
-    var albumDetails: [AlbumDetailModel] = []
+class AlbumDetail: AppController {
+ 
+    private let viewModel = AlbumDetailViewModel()
     var albumId: Int? = nil
-    let spinner = SpinnerViewController()
+
     private let sectionInsets = UIEdgeInsets(
         top: 20.0,
       left: 10.0,
@@ -23,7 +23,8 @@ class AlbumDetail: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showSpinner()
+        viewModel.delegate = self
+        viewModel.loadData(albumId: self.albumId ?? -1)
         
         let nib = UINib(nibName: "AlbumDetailCell", bundle: .main)
         
@@ -31,50 +32,19 @@ class AlbumDetail: UIViewController {
         collectionVC.delegate = self
         collectionVC.dataSource = self
     }
-    
-    func showSpinner() {
-        addChild(spinner)
-        spinner.view.frame = view.frame
-        view.addSubview(spinner.view)
-        spinner.didMove(toParent: self)
-        getAlbumDetails()
-    }
-    func hideSpinnner(){
-        // then remove the spinner view controller
-        self.spinner.willMove(toParent: nil)
-        self.spinner.view.removeFromSuperview()
-        self.spinner.removeFromParent()
-    }
-    
-    func getAlbumDetails(){
-        AlbumProviderImpl().getAlbumsDetail(albumId: self.albumId ?? -1) {
-            data, status, message in
-            if status == .success {
-                self.albumDetails = data as! [AlbumDetailModel]
-                if self.albumDetails.isEmpty {
-                    print("Not found Data")
-                } else {
-                    self.collectionVC.reloadData()
-                }
-            } else {
-                print(message)
-            }
-            self.hideSpinnner()
-        }
-    }
 }
 
 extension AlbumDetail: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albumDetails.count
+        return viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AlbumDetailCell
         
-        cell.setUpCell(album: albumDetails[indexPath.row])
+        cell.setUpCell(album: viewModel.getInfo(index: indexPath.row))
         
         return cell
     }
@@ -105,6 +75,27 @@ extension AlbumDetail: UICollectionViewDelegateFlowLayout{
           return sectionInsets.left
       }
 
+}
+
+extension AlbumDetail: RequestDelegate {
+    func didUpdate(with state: ViewState) {
+        DispatchQueue.main.async {
+            [weak self] in
+            guard let self = self else { return }
+            switch state {
+            case .success:
+                self.collectionVC.reloadData()
+                self.stopLoading()
+            case .idle:
+                break
+            case .loading:
+                self.startLoading()
+            case .error(let error):
+                self.stopLoading()
+                print(error)
+            }
+        }
+    }
 }
 
 

@@ -26,18 +26,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKB-ky-S3Y">
-                        <rect key="frame" x="66" y="8.6666666666666643" width="254" height="27"/>
+                        <rect key="frame" x="86" y="8.6666666666666643" width="48.333333333333343" height="27"/>
                         <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="22"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="HKB-ky-S3Y" firstAttribute="leading" secondItem="cAL-pf-4PH" secondAttribute="trailing" id="0Jw-Gn-vJl"/>
-                    <constraint firstItem="cAL-pf-4PH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="1WM-vF-1pu"/>
-                    <constraint firstItem="cAL-pf-4PH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="64e-NT-zyV"/>
-                    <constraint firstAttribute="trailing" secondItem="HKB-ky-S3Y" secondAttribute="trailing" id="eVM-2H-e6w"/>
-                    <constraint firstItem="HKB-ky-S3Y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tSo-Wp-R4U"/>
+                    <constraint firstItem="cAL-pf-4PH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="7Vq-XG-gvm"/>
+                    <constraint firstItem="HKB-ky-S3Y" firstAttribute="leading" secondItem="cAL-pf-4PH" secondAttribute="trailing" constant="20" id="8tn-BJ-dZX"/>
+                    <constraint firstItem="HKB-ky-S3Y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LZW-JA-IRR"/>
+                    <constraint firstItem="cAL-pf-4PH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aAZ-CM-w1d"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

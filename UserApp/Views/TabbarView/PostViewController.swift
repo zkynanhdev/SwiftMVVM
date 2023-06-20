@@ -8,34 +8,16 @@
 import UIKit
 import Alamofire
 
-class PostViewController: UIViewController {
-    
-    var user: UserModel? = nil
-    var posts: [PostModel] = []
-    
-    let spinner = SpinnerViewController()
+class PostViewController: AppController {
+ 
+    private let postViewModel = PostViewModel()
     @IBOutlet weak var tableView: UITableView!
-    
-    func showSpinner() {
-        addChild(spinner)
-        spinner.view.frame = view.frame
-        view.addSubview(spinner.view)
-        spinner.didMove(toParent: self)
-        getPosts(userId: user?.id ?? -1)
-    }
-    func hideSpinnner(){
-        // then remove the spinner view controller
-        self.spinner.willMove(toParent: nil)
-        self.spinner.view.removeFromSuperview()
-        self.spinner.removeFromParent()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let tbvc = self.tabBarController as! TabbarViewController
-        user = tbvc.user
-        showSpinner()
+        postViewModel.delegate = self
+        postViewModel.loadData(id: tbvc.user?.id ?? -1)
         
         // register tableview
         let nib = UINib(nibName: "PostTableViewCell", bundle: .main)
@@ -43,25 +25,6 @@ class PostViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
-    
-    func getPosts(userId: Int) {
-        PostProviderImpl().getPosts(id: userId) {
-            data, status, message in
-            if status == .success {
-                self.posts = data as! [PostModel]
-                if self.posts.isEmpty {
-                    print("Not found Data")
-                } else {
-                    self.tableView.reloadData()
-                }
-            } else {
-                print(message)
-            }
-            self.hideSpinnner()
-        }
-    }
-
 }
 
 extension PostViewController: UITableViewDelegate, UITableViewDataSource{
@@ -71,13 +34,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts.count
+        return self.postViewModel.numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PostTableViewCell
         
-        cell.setUpCell(post: posts[indexPath.row])
+        cell.setUpCell(post: self.postViewModel.getInfo(index: indexPath.row))
         cell.delegate = self
         
         return cell
@@ -95,10 +58,31 @@ extension PostViewController: PostCellDelegate {
     func cellCommentButtonTapped(cell: PostTableViewCell) {
         let indexPath = self.tableView.indexPath(for: cell)!
         let commentVc = CommentsViewController()
-        commentVc.postId = self.posts[indexPath.row].id
+        commentVc.postId = self.postViewModel.getInfo(index: indexPath.row).id
         self.present(commentVc, animated: true)
     }
     
+}
+
+extension PostViewController: RequestDelegate {
+    func didUpdate(with state: ViewState) {
+        DispatchQueue.main.async {
+            [weak self] in
+            guard let self = self else { return }
+            switch state {
+            case .success:
+                self.tableView.reloadData()
+                self.stopLoading()
+            case .idle:
+                break
+            case .loading:
+                self.startLoading()
+            case .error(let error):
+                self.stopLoading()
+                print(error)
+            }
+        }
+    }
 }
 
 

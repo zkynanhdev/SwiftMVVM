@@ -2,23 +2,27 @@ PODS:
   - Alamofire (5.7.1)
   - ImageLoader (0.15.0)
   - OCMock (2.0.1)
+  - ProgressHUD (13.6.2)
 
 DEPENDENCIES:
   - Alamofire
   - ImageLoader (~> 0.15)
   - OCMock (~> 2.0.1)
+  - ProgressHUD
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - ImageLoader
     - OCMock
+    - ProgressHUD
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   ImageLoader: e0635d52020d64dc7687e3a3b14dc53212ac0442
   OCMock: 7a839b55abfb78e8ec3bf6eaa3cdcc567ac71d2a
+  ProgressHUD: 355915c8f033e626788fa9b0d99d06e8691595ab
 
-PODFILE CHECKSUM: 4a6658e0c2348cc889ebc454fcde9913f4bc9ab3
+PODFILE CHECKSUM: a7e09aab9dd3fde2b7b8c629998bb11ceae0e4bb
 
 COCOAPODS: 1.12.1
